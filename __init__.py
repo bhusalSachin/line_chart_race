@@ -4,8 +4,11 @@ from .config import config
 from .interpolation import interpolate_data
 
 def run_chart_race():
-    interp_data = interpolate_data(config('real_data_path'))
-    # df = prepare_data(config['data_path'], config['interval'])
+    interp_data = interpolate_data(config['real_data_path'])
+    # Directly pass the interpolated data to `prepare_data`
     df = prepare_data(interp_data, config['interval'])
-    create_animation(df, config['real_data_path'], config['columns'])
+    
+    # Pass the DataFrame directly to create_animation
+    create_animation(df)
+    
     save_animation(df, config['output_path'])

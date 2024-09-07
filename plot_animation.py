@@ -4,10 +4,10 @@ import matplotlib.animation as animation
 import numpy as np
 from .utils import configure_plot
 
-def create_animation(data_path, real_data_path, column_names, window_size=300):
-    """Create an animated line chart race."""
-    df = pd.read_csv(data_path)
-    real_df = pd.read_csv(real_data_path)
+def create_animation(df, window_size=300):
+    """Create an animated line chart race using DataFrame directly."""
+    # Assuming df is already a DataFrame, no need to read it again
+    column_names = df.columns.tolist()
 
     fig, ax, lines = configure_plot(df, column_names)
 
@@ -27,6 +27,7 @@ def create_animation(data_path, real_data_path, column_names, window_size=300):
             lines[region].set_data(x, y)
 
     ani = animation.FuncAnimation(fig, update, frames=len(df), init_func=lambda: None, blit=True)
+    # ani.save('line_chart_race.mp4', writer='ffmpeg', fps=30)
     plt.show()
 
 def save_animation(animation, file_path):

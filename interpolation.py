@@ -30,6 +30,8 @@ def interpolate_data(file_path, num_points=10):
     # Sort the DataFrame by the 'Year' column to ensure proper interpolation order
     df = df.sort_values('Year')
 
+
+
     # Create a new DataFrame to store interpolated results
     interpolated_data = pd.DataFrame(columns=['Year', col1, col2])
 
@@ -51,7 +53,9 @@ def interpolate_data(file_path, num_points=10):
         })
 
         # Appending the interpolated points to the main DataFrame
-        interpolated_data = pd.concat([interpolated_data, temp_df])
+        if not temp_df.empty:
+            interpolated_data = pd.concat([interpolated_data, temp_df])
+        # interpolated_data = pd.concat([interpolated_data, temp_df])
 
     # Reset the index of the resulting DataFrame
     interpolated_data = interpolated_data.reset_index(drop=True)
